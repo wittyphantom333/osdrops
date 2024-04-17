@@ -14,6 +14,7 @@ module.exports = app => {
   // Retrieve all collected collections
   router.get("/collected", collections.findAllCollected);
 
+  // Delete a record by title
   router.delete("/record", collections.deleteRecord);
 
   // Retrieve a single collections with id

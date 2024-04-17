@@ -22,7 +22,6 @@ class CollectionsDataService {
   }
 
   deleteRecord(title) {
-    console.log(title);
     return http.delete(`/collections/record?title=${title}`);
   }
 

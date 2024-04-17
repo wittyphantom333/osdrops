@@ -119,6 +119,7 @@ export default new Vuex.Store({
       localStorage.removeItem("items");
       localStorage.removeItem("clues");
       localStorage.removeItem("rsn");
+      CollectionsDataService.deleteAll().then(r => console.log(r));
     },
     setSearch: (context, search) => {
       if (search == null) {

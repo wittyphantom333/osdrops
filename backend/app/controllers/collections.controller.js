@@ -36,10 +36,9 @@ exports.findAll = (req, res) => {
   const condition = title
     ? { title: { $regex: new RegExp(title), $options: "i" } }
     : {};
-
   Collections.find(condition)
     .then(data => {
-      res.send(data);
+      res.send(data.description);
     })
     .catch(err => {
       res.status(500).send({
