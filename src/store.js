@@ -4,14 +4,22 @@ import CollectionsDataService from "./services/CollectionsDataService";
 
 Vue.use(Vuex);
 
+const db = CollectionsDataService;
+
 export default new Vuex.Store({
   state: {
-    storedItems: JSON.parse(localStorage.getItem("items")) || {},
+    storedItems:
+      db.getAll().then((res) => res.data.data[0].description) ||
+      JSON.parse(localStorage.getItem("items")) ||
+      {},
     clues: JSON.parse(localStorage.getItem("clues")) || resetClues(),
     rsn: localStorage.getItem("rsn") || "",
     search: "",
     cleared: false,
-    sessionItems: JSON.parse(sessionStorage.getItem("items")) || {},
+    sessionItems:
+      db.getAll().then((res) => res.data.data[0].description) ||
+      JSON.parse(sessionStorage.getItem("items")) ||
+      {},
     sessionClues: JSON.parse(sessionStorage.getItem("clues")) || resetClues(),
     dark: JSON.parse(localStorage.getItem("dark")) || false,
     compact: JSON.parse(localStorage.getItem("compact")) || false,
@@ -103,7 +111,7 @@ export default new Vuex.Store({
     addItem: (context, item) => {
       context.commit("ADD_ITEM", item);
       localStorage.setItem("items", JSON.stringify(context.state.storedItems));
-      CollectionsDataService.create({
+      db.create({
         title: item,
         description: JSON.stringify(context.state.storedItems),
         collected: true,
@@ -112,14 +120,14 @@ export default new Vuex.Store({
     removeItem: (context, item) => {
       context.commit("REMOVE_ITEM", item);
       localStorage.setItem("items", JSON.stringify(context.state.storedItems));
-      CollectionsDataService.deleteRecord(item).then((r) => console.log(r));
+      db.deleteRecord(item).then((r) => console.log(r));
     },
     clear: (context) => {
       context.commit("CLEAR_STORAGE");
       localStorage.removeItem("items");
       localStorage.removeItem("clues");
       localStorage.removeItem("rsn");
-      CollectionsDataService.deleteAll().then((r) => console.log(r));
+      db.deleteAll().then((r) => console.log(r));
     },
     setSearch: (context, search) => {
       if (search == null) {

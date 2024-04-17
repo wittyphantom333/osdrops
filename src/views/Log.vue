@@ -25,7 +25,6 @@
           :snackText="'All items removed'"
           @confirm="clearStorage"
         />
-        <DialogShare />
       </template>
       <template v-else>
         <DialogBinary

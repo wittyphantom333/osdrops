@@ -13,19 +13,19 @@ exports.create = (req, res) => {
   const collections = new Collections({
     title: req.body.title,
     description: req.body.description,
-    collected: req.body.collected ? req.body.collected : false
+    collected: req.body.collected ? req.body.collected : false,
   });
 
   // Save collections in the database
   collections
     .save(collections)
-    .then(data => {
+    .then((data) => {
       res.send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the collections."
+          err.message || "Some error occurred while creating the collections.",
       });
     });
 };
@@ -37,13 +37,13 @@ exports.findAll = (req, res) => {
     ? { title: { $regex: new RegExp(title), $options: "i" } }
     : {};
   Collections.find(condition)
-    .then(data => {
-      res.send(data.description);
+    .then((data) => {
+      res.json({ data });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving collections."
+          err.message || "Some error occurred while retrieving collections.",
       });
     });
 };
@@ -55,13 +55,13 @@ exports.findByTitle = (req, res) => {
     : {};
 
   Collections.find(condition)
-    .then(data => {
+    .then((data) => {
       res.send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving collections."
+          err.message || "Some error occurred while retrieving collections.",
       });
     });
 };
@@ -71,39 +71,51 @@ exports.findOne = (req, res) => {
   const id = req.params.id;
 
   Collections.findById(id)
-    .then(data => {
+    .then((data) => {
       if (!data)
-        res.status(404).send({ message: "Not found collections with id " + id });
+        res
+          .status(404)
+          .send({ message: "Not found collections with id " + id });
       else res.send(data);
     })
-    .catch(err => {
+    .catch((err) => {
+      if (err.kind === "ObjectId") {
+        res
+          .status(404)
+          .send({ message: "Not found collections with id " + id });
+      }
       res
         .status(500)
         .send({ message: "Error retrieving collections with id=" + id });
     });
-}
+};
 
 // Update a collections by the id in the request
 exports.update = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
-      message: "Data to update can not be empty!"
+      message: "Data to update can not be empty!",
     });
   }
 
   const id = req.params.id;
 
   Collections.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then(data => {
+    .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot update collections with id=${id}. Maybe collections was not found!`
+          message: `Cannot update collections with id=${id}. Maybe collections was not found!`,
         });
       } else res.send({ message: "collections was updated successfully." });
     })
-    .catch(err => {
+    .catch((err) => {
+      if (err.kind === "ObjectId") {
+        res.status(404).send({
+          message: `Cannot update collections with id=${id}. Maybe collections was not found!`,
+        });
+      }
       res.status(500).send({
-        message: "Error updating collections with id=" + id
+        message: "Error updating collections with id=" + id,
       });
     });
 };
@@ -113,20 +125,25 @@ exports.delete = (req, res) => {
   const id = req.params.id;
 
   Collections.findByIdAndDelete(id)
-    .then(data => {
+    .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot delete collections with id=${id}. Maybe collections was not found!`
+          message: `Cannot delete collections with id=${id}. Maybe collections was not found!`,
         });
       } else {
         res.send({
-          message: "collections was deleted successfully!"
+          message: "collections was deleted successfully!",
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
+      if (err.kind === "ObjectId" || err.name === "NotFound") {
+        res.status(404).send({
+          message: `Cannot delete collections with id=${id}. Maybe collections was not found!`,
+        });
+      }
       res.status(500).send({
-        message: "Could not delete collections with id=" + id
+        message: "Could not delete collections with id=" + id,
       });
     });
 };
@@ -134,15 +151,15 @@ exports.delete = (req, res) => {
 // Delete all collections from the database.
 exports.deleteAll = (req, res) => {
   Collections.deleteMany({})
-    .then(data => {
+    .then((data) => {
       res.send({
-        message: `${data.deletedCount} collections were deleted successfully!`
+        message: `${data.deletedCount} collections were deleted successfully!`,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all collections."
+          err.message || "Some error occurred while removing all collections.",
       });
     });
 };
@@ -150,17 +167,15 @@ exports.deleteAll = (req, res) => {
 exports.deleteRecord = (req, res) => {
   const title = req.query.title;
   Collections.deleteMany({ title: title })
-    .then(data => {
+    .then((data) => {
       res.send({
-        message: `${data.deletedCount} collections were deleted successfully! ${
-          title
-        }`
+        message: `${data.deletedCount} collections were deleted successfully! ${title}`,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all collections."
+          err.message || "Some error occurred while removing all collections.",
       });
     });
 };
@@ -168,13 +183,13 @@ exports.deleteRecord = (req, res) => {
 // Find all collected collections
 exports.findAllCollected = (req, res) => {
   Collections.find({ collected: true })
-    .then(data => {
+    .then((data) => {
       res.send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving collections."
+          err.message || "Some error occurred while retrieving collections.",
       });
     });
 };

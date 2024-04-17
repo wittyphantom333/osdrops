@@ -1,6 +1,5 @@
 require("../controllers/collections.controller");
-const collections = require("../controllers/collections.controller");
-module.exports = app => {
+module.exports = (app) => {
   const collections = require("../controllers/collections.controller.js");
 
   const router = require("express").Router();
