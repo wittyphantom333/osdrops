@@ -112,9 +112,7 @@ export default new Vuex.Store({
     removeItem: (context, item) => {
       context.commit("REMOVE_ITEM", item);
       localStorage.setItem("items", JSON.stringify(context.state.storedItems));
-      CollectionsDataService.deleteRecord(item).then(r =>
-        console.log(r)
-      );
+      CollectionsDataService.deleteRecord(item).then(r => console.log(r));
     },
     clear: context => {
       context.commit("CLEAR_STORAGE");
