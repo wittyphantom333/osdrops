@@ -34,27 +34,27 @@ import { mapActions } from "vuex";
 
 export default {
   components: {
-    Item: () => import("./Item.vue")
+    Item: () => import("./Item.vue"),
   },
   props: {
     card: Object,
     editable: Boolean,
-    compact: Boolean
+    compact: Boolean,
   },
   data() {
     return {
       items: this.card.items,
       total: this.card.items.length,
       title: this.card.title,
-      unlocked: 0
+      unlocked: 0,
     };
   },
   methods: {
     ...mapActions(["addItem", "removeItem"]),
-    add: function(item) {
+    add: function (item) {
       if (this.card.cumulative) {
         const index = this.items.indexOf(item);
-        this.items.slice(0, index).forEach(i => {
+        this.items.slice(0, index).forEach((i) => {
           if (!this.$store.getters.isUnlocked({ editable: true, item: i.id })) {
             this.addItem(i.id);
             this.unlocked += 1;
@@ -66,16 +66,16 @@ export default {
       this.unlocked += 1;
       item.unlocked = true;
     },
-    remove: function(item) {
+    remove: function (item) {
       if (this.card.cumulative) {
         const index = this.items.indexOf(item);
         const unlockedItemsAfterIndex = this.items
           .slice(index + 1)
-          .filter(i =>
+          .filter((i) =>
             this.$store.getters.isUnlocked({ editable: true, item: i.id })
           );
         if (unlockedItemsAfterIndex.length > 0) {
-          unlockedItemsAfterIndex.forEach(i => {
+          unlockedItemsAfterIndex.forEach((i) => {
             this.removeItem(i.id);
             this.unlocked -= 1;
             i.unlocked = false;
@@ -90,64 +90,64 @@ export default {
         this.unlocked -= 1;
         item.unlocked = false;
       }
-    }
+    },
   },
   computed: {
-    step: function() {
+    step: function () {
       return 100 * (this.unlocked / this.total);
     },
-    filteredItems: function() {
+    filteredItems: function () {
       if (
         this.$store.state.search.length === 0 ||
         this.card.title.toLowerCase().includes(this.$store.getters.getSearch)
       ) {
         return this.$store.getters.hideUnlocked
           ? this.items.filter(
-              item => this.$store.getters.hideUnlocked && !item.unlocked
+              (item) => this.$store.getters.hideUnlocked && !item.unlocked
             )
           : this.items;
       } else {
         return this.items.filter(
-          item =>
+          (item) =>
             item.title.toLowerCase().includes(this.$store.getters.getSearch) ||
             (this.$store.getters.hideUnlocked && !item.unlocked)
         );
       }
     },
-    empty: function() {
+    empty: function () {
       return this.filteredItems.length === 0;
     },
-    cleared: function() {
+    cleared: function () {
       return this.$store.getters.isCleared;
     },
-    completed: function() {
+    completed: function () {
       return this.step === 100;
-    }
+    },
   },
   watch: {
-    empty: function() {
+    empty: function () {
       this.card.empty = this.empty;
     },
-    cleared: function() {
+    cleared: function () {
       if (this.editable) {
         this.unlocked = 0;
-        this.items.forEach(i => {
+        this.items.forEach((i) => {
           i.unlocked = false;
         });
       }
-    }
+    },
   },
-  mounted: function() {
+  mounted: function () {
     this.$set(this.card, "empty", false);
     this.unlocked = this.items
-      .map(item =>
+      .map((item) =>
         this.$store.getters.isUnlocked({
           editable: this.editable,
-          item: item.id
+          item: item.id,
         })
       )
       .filter(Boolean).length;
-  }
+  },
 };
 </script>
 

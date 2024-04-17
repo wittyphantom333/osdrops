@@ -18,7 +18,7 @@
 <script>
 export default {
   data: () => ({
-    timeout: null
+    timeout: null,
   }),
   computed: {
     search: {
@@ -32,9 +32,9 @@ export default {
         this.timeout = setTimeout(() => {
           this.$store.dispatch("setSearch", value);
         }, time);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 

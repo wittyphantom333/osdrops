@@ -28,22 +28,22 @@ export default {
     cardText: String,
     btnText: String,
     action: String,
-    snackText: String
+    snackText: String,
   },
   data: () => ({
     dialog: false,
-    snackbar: false
+    snackbar: false,
   }),
   methods: {
-    confirm: function() {
+    confirm: function () {
       this.dialog = false;
       this.snackbar = true;
       this.$emit("confirm");
     },
-    cancel: function() {
+    cancel: function () {
       this.dialog = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

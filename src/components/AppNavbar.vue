@@ -61,16 +61,16 @@ import SettingsMenu from "@/components/SettingsMenu.vue";
 
 export default {
   components: {
-    SettingsMenu
+    SettingsMenu,
   },
   data: () => ({
     drawer: null,
     routes: [
       { name: "Home", icon: "check_circle_outline", to: "/" },
       { name: "About", icon: "info", to: "/about" },
-      { name: "Profile", icon: "favorite", to: "/donate" }
-    ]
-  })
+      //{ name: "Profile", icon: "favorite", to: "/donate" }
+    ],
+  }),
 };
 </script>
 

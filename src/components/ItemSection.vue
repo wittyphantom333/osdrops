@@ -24,19 +24,19 @@ import ClueCard from "./ClueCard.vue";
 export default {
   components: {
     ItemCard,
-    ClueCard
+    ClueCard,
   },
   props: {
     title: String,
     cards: Array,
     editable: Boolean,
-    compact: Boolean
+    compact: Boolean,
   },
   computed: {
-    empty: function() {
-      return this.cards.filter(c => !c.empty).length === 0;
-    }
-  }
+    empty: function () {
+      return this.cards.filter((c) => !c.empty).length === 0;
+    },
+  },
 };
 </script>
 

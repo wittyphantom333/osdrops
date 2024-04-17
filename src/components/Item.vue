@@ -13,12 +13,12 @@ export default {
   props: {
     item: Object,
     cumulative: Boolean,
-    editable: Boolean
+    editable: Boolean,
   },
   data() {
     return {
       id: this.item.id,
-      title: this.item.title
+      title: this.item.title,
     };
   },
   methods: {
@@ -31,25 +31,25 @@ export default {
     },
     getSrc() {
       return require(`@/assets/img/${this.src}`);
-    }
+    },
   },
   computed: {
-    unlocked: function() {
+    unlocked: function () {
       return this.item.unlocked;
     },
-    src: function() {
+    src: function () {
       return "src" in this.item
         ? this.item.src
         : this.title.toLowerCase().replace(/ /g, "_") + ".png";
-    }
+    },
   },
-  mounted: function() {
+  mounted: function () {
     this.$set(
       this.item,
       "unlocked",
       this.$store.getters.isUnlocked({ editable: this.editable, item: this.id })
     );
-  }
+  },
 };
 </script>
 

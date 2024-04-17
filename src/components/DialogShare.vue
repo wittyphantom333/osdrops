@@ -61,11 +61,11 @@ export default {
     urlParams: new URLSearchParams(window.location.search),
     baseUrl: window.location.href + "log?",
     url: "",
-    rsn: ""
+    rsn: "",
   }),
   methods: {
     ...mapActions(["addRSN"]),
-    genURL: function() {
+    genURL: function () {
       const items = Object.keys(this.$store.getters.getItems);
       const clues = Object.values(this.$store.getters.getClues);
 
@@ -78,14 +78,14 @@ export default {
       }
       this.url = this.baseUrl + this.urlParams;
     },
-    copy: function() {
+    copy: function () {
       this.$refs.url.select();
       document.execCommand("copy");
 
       this.message = "Copied to clipboard";
       this.snackbar = true;
     },
-    add: function() {
+    add: function () {
       this.rsn = this.rsn.replace(/[^0-9a-zA-Z_-\s]/g, "");
       this.addRSN(this.rsn);
       if (this.rsn !== "") {
@@ -96,21 +96,21 @@ export default {
       this.url = this.baseUrl + this.urlParams;
       this.message = "RSN added";
       this.snackbar = true;
-    }
+    },
   },
   computed: {
-    cleared: function() {
+    cleared: function () {
       return this.$store.getters.isCleared;
-    }
+    },
   },
   watch: {
-    cleared: function() {
+    cleared: function () {
       this.rsn = "";
-    }
+    },
   },
-  created: function() {
+  created: function () {
     this.rsn = this.$store.getters.getRSN;
-  }
+  },
 };
 </script>
 

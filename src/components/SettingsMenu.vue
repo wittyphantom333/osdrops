@@ -41,7 +41,7 @@ export default {
       },
       set() {
         this.$store.dispatch("toggleCompactTheme");
-      }
+      },
     },
     dark: {
       get() {
@@ -49,7 +49,7 @@ export default {
       },
       set() {
         this.$store.dispatch("toggleDarkTheme");
-      }
+      },
     },
     onlyUnlocked: {
       get() {
@@ -57,9 +57,9 @@ export default {
       },
       set() {
         this.$store.dispatch("toggleUnlocked");
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 

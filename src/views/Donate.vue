@@ -40,7 +40,7 @@ import donationData from "@/assets/json/donation-data.json";
 
 export default {
   data: () => ({
-    donators: donationData
-  })
+    donators: donationData,
+  }),
 };
 </script>

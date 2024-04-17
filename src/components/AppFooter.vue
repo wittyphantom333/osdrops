@@ -5,28 +5,19 @@
     <p>
       Made with
       <a
-        href="https://vuejs.org/"
+        href="https://pushingstart.com/"
         target="_blank"
         class="teal--text text--lighten-2"
-        >Vue.js</a
+        >PushingStart</a
       >
     </p>
     <p>
-      Source code available at
+      2024 All Rights Reserved
       <a
-        href="https://github.com/rdsa/osdrops"
+        href="https://skarsis.com/"
         target="_blank"
         class="blue--text text--lighten-2"
-        >GitHub</a
-      >
-    </p>
-    <p>
-      Item images from the
-      <a
-        href="https://oldschool.runescape.wiki"
-        target="_blank"
-        class="blue--text text--lighten-2"
-        >OSRS Wiki</a
+        >Skarsis</a
       >
     </p>
   </footer>
@@ -40,3 +31,4 @@ p {
   margin: 0.5rem;
 }
 </style>
+<script setup lang="ts"></script>

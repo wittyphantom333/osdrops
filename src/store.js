@@ -15,49 +15,49 @@ export default new Vuex.Store({
     sessionClues: JSON.parse(sessionStorage.getItem("clues")) || resetClues(),
     dark: JSON.parse(localStorage.getItem("dark")) || false,
     compact: JSON.parse(localStorage.getItem("compact")) || false,
-    hideUnlocked: false
+    hideUnlocked: false,
   },
   getters: {
-    getSearch: state => {
+    getSearch: (state) => {
       return state.search.toLowerCase();
     },
-    getRSN: state => {
+    getRSN: (state) => {
       return state.rsn;
     },
-    getItems: state => {
+    getItems: (state) => {
       return state.storedItems;
     },
-    getClues: state => {
+    getClues: (state) => {
       return state.clues;
     },
-    getClueCount: state => payload => {
+    getClueCount: (state) => (payload) => {
       return payload.editable
         ? state.clues[payload.difficulty]
         : state.sessionClues[payload.difficulty];
     },
-    getTotalClueCount: state => editable => {
+    getTotalClueCount: (state) => (editable) => {
       return Object.values(editable ? state.clues : state.sessionClues).reduce(
         (a, b) => +a + +b,
         0
       );
     },
-    isUnlocked: state => payload => {
+    isUnlocked: (state) => (payload) => {
       return payload.editable
         ? typeof state.storedItems[payload.item] !== "undefined"
         : typeof state.sessionItems[payload.item] !== "undefined";
     },
-    isCleared: state => {
+    isCleared: (state) => {
       return state.cleared;
     },
-    isDarkTheme: state => {
+    isDarkTheme: (state) => {
       return state.dark;
     },
-    isCompactTheme: state => {
+    isCompactTheme: (state) => {
       return state.compact;
     },
-    hideUnlocked: state => {
+    hideUnlocked: (state) => {
       return state.hideUnlocked;
-    }
+    },
   },
   mutations: {
     ADD_ITEM(state, item) {
@@ -97,7 +97,7 @@ export default new Vuex.Store({
     },
     TOGGLE_UNLOCKED(state) {
       state.hideUnlocked = !state.hideUnlocked;
-    }
+    },
   },
   actions: {
     addItem: (context, item) => {
@@ -106,20 +106,20 @@ export default new Vuex.Store({
       CollectionsDataService.create({
         title: item,
         description: JSON.stringify(context.state.storedItems),
-        collected: true
-      }).then(r => console.log(r));
+        collected: true,
+      }).then((r) => console.log(r));
     },
     removeItem: (context, item) => {
       context.commit("REMOVE_ITEM", item);
       localStorage.setItem("items", JSON.stringify(context.state.storedItems));
-      CollectionsDataService.deleteRecord(item).then(r => console.log(r));
+      CollectionsDataService.deleteRecord(item).then((r) => console.log(r));
     },
-    clear: context => {
+    clear: (context) => {
       context.commit("CLEAR_STORAGE");
       localStorage.removeItem("items");
       localStorage.removeItem("clues");
       localStorage.removeItem("rsn");
-      CollectionsDataService.deleteAll().then(r => console.log(r));
+      CollectionsDataService.deleteAll().then((r) => console.log(r));
     },
     setSearch: (context, search) => {
       if (search == null) {
@@ -138,7 +138,7 @@ export default new Vuex.Store({
       sessionStorage.setItem("items", JSON.stringify(payload.items));
       sessionStorage.setItem("clues", JSON.stringify(payload.clues));
     },
-    replaceLog: context => {
+    replaceLog: (context) => {
       context.commit("REPLACE_STORAGE");
       localStorage.setItem("items", JSON.stringify(context.state.sessionItems));
       localStorage.setItem("clues", JSON.stringify(context.state.sessionClues));
@@ -147,18 +147,18 @@ export default new Vuex.Store({
       context.commit("ADD_RSN", rsn);
       localStorage.setItem("rsn", rsn);
     },
-    toggleCompactTheme: context => {
+    toggleCompactTheme: (context) => {
       context.commit("TOGGLE_COMPACT");
       localStorage.setItem("compact", JSON.stringify(context.state.compact));
     },
-    toggleDarkTheme: context => {
+    toggleDarkTheme: (context) => {
       context.commit("TOGGLE_DARK");
       localStorage.setItem("dark", JSON.stringify(context.state.dark));
     },
-    toggleUnlocked: context => {
+    toggleUnlocked: (context) => {
       context.commit("TOGGLE_UNLOCKED");
-    }
-  }
+    },
+  },
 });
 
 function resetClues() {
@@ -168,6 +168,6 @@ function resetClues() {
     Medium: 0,
     Hard: 0,
     Elite: 0,
-    Master: 0
+    Master: 0,
   };
 }

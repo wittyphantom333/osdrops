@@ -34,23 +34,23 @@ import ClueItem from "@/components/ClueItem.vue";
 
 export default {
   components: {
-    ClueItem
+    ClueItem,
   },
   props: {
-    editable: Boolean
+    editable: Boolean,
   },
   data: () => ({
     title: "Clue Count",
-    clues: clueData
+    clues: clueData,
   }),
   computed: {
-    search: function() {
+    search: function () {
       return this.$store.state.search.length === 0;
     },
-    total: function() {
+    total: function () {
       return this.$store.getters.getTotalClueCount(this.editable);
-    }
-  }
+    },
+  },
 };
 </script>
 

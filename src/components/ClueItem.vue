@@ -30,41 +30,41 @@
 export default {
   props: {
     clue: Object,
-    editable: Boolean
+    editable: Boolean,
   },
   data() {
     return {
       difficulty: this.clue.difficulty,
       threshold: this.clue.threshold,
-      title: this.clue.title
+      title: this.clue.title,
     };
   },
   methods: {
     getSrc() {
       return require(`@/assets/img/${this.src}`);
-    }
+    },
   },
   computed: {
     count: {
       get() {
         return this.$store.getters.getClueCount({
           difficulty: this.difficulty,
-          editable: this.editable
+          editable: this.editable,
         });
       },
       set(value) {
         this.$store.dispatch("setClues", {
           difficulty: this.difficulty,
-          count: value
+          count: value,
         });
-      }
+      },
     },
-    src: function() {
+    src: function () {
       return this.title.toLowerCase().replace(/ /g, "_") + ".png";
     },
-    unlocked: function() {
+    unlocked: function () {
       return this.count >= this.threshold;
-    }
-  }
+    },
+  },
 };
 </script>

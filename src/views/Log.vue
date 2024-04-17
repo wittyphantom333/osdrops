@@ -46,39 +46,39 @@ import ItemSection from "@/components/ItemSection.vue";
 import ItemSearch from "@/components/ItemSearch.vue";
 import BackToTop from "@/components/BackToTop.vue";
 import DialogBinary from "@/components/DialogBinary.vue";
-import DialogShare from "@/components/DialogShare.vue";
+//import DialogShare from "@/components/DialogShare.vue";
 import itemData from "@/assets/json/item-data.json";
 import { mapActions } from "vuex";
 
 export default {
   components: {
     DialogBinary,
-    DialogShare,
+    //  DialogShare,
     ItemSection,
     ItemSearch,
-    BackToTop
+    BackToTop,
   },
   data: () => ({
     sections: itemData,
     rsn: "",
     editable: !window.location.href.includes("/log"),
-    cards: []
+    cards: [],
   }),
   methods: {
     ...mapActions(["clear", "addItem", "setSessionData", "replaceLog"]),
-    clearStorage: function() {
+    clearStorage: function () {
       this.clear();
     },
-    replace: function() {
+    replace: function () {
       this.replaceLog();
-    }
+    },
   },
   computed: {
-    compact: function() {
+    compact: function () {
       return this.$store.getters.isCompactTheme;
-    }
+    },
   },
-  created: function() {
+  created: function () {
     this.cards = [].concat.apply([], Object.values(itemData));
     if (!this.editable) {
       if (this.$route.query.items && this.$route.query.clues) {
@@ -97,7 +97,7 @@ export default {
 
         this.setSessionData({
           items: tempItems,
-          clues: tempClues
+          clues: tempClues,
         });
       }
       if (this.$route.query.rsn) {
@@ -111,7 +111,7 @@ export default {
         window.location.href.split("?")[0]
       );
     }
-  }
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
 # OS Drops
 
-OS Drops is an online open source collection log for Old School Runescape.
+Skarsis OSRS Collection Logger is an online collection log for Old School Runescape.
 
 ## Features
 
@@ -37,3 +37,9 @@ npm run deploy
 * Vue Router
 
 * Vuex
+
+* Axios
+
+* MongoDB
+
+* Love

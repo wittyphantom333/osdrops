@@ -18,13 +18,13 @@ export default {
   name: "app",
   components: {
     AppNavbar,
-    AppFooter
+    AppFooter,
   },
   computed: {
-    dark: function() {
+    dark: function () {
       return this.$store.getters.isDarkTheme;
-    }
-  }
+    },
+  },
 };
 </script>
 

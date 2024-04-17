@@ -12,6 +12,6 @@ export default new Router({
   routes: [
     { path: "/", name: "Log", component: Log, alias: "/log" },
     { path: "/about", name: "about", component: About },
-    { path: "/donate", name: "donate", component: Donate }
-  ]
+    { path: "/donate", name: "donate", component: Donate },
+  ],
 });

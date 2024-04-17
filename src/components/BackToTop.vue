@@ -22,14 +22,14 @@
 export default {
   data: () => ({
     offsetTop: 0,
-    show: false
+    show: false,
   }),
   methods: {
     onScroll() {
       this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
       this.show = this.offsetTop > 400;
-    }
-  }
+    },
+  },
 };
 </script>
 
