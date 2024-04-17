@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import CollectionsDataService from "./services/CollectionsDataService";
 
 Vue.use(Vuex);
 
@@ -102,10 +103,18 @@ export default new Vuex.Store({
     addItem: (context, item) => {
       context.commit("ADD_ITEM", item);
       localStorage.setItem("items", JSON.stringify(context.state.storedItems));
+      CollectionsDataService.create({
+        title: item,
+        description: JSON.stringify(context.state.storedItems),
+        collected: true
+      }).then(r => console.log(r));
     },
     removeItem: (context, item) => {
       context.commit("REMOVE_ITEM", item);
       localStorage.setItem("items", JSON.stringify(context.state.storedItems));
+      CollectionsDataService.deleteRecord(item).then(r =>
+        console.log(r)
+      );
     },
     clear: context => {
       context.commit("CLEAR_STORAGE");

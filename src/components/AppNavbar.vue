@@ -8,11 +8,10 @@
       ></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" class="light-blue-text nav-title"
-          >OS Drops</router-link
+          >Skarsis OSRS Collection Logger</router-link
         >
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <SettingsMenu />
       <v-toolbar-items class="hidden-sm-and-down">
         <template v-for="route in routes">
           <v-btn
@@ -26,6 +25,7 @@
           </v-btn>
         </template>
       </v-toolbar-items>
+      <SettingsMenu />
     </v-toolbar>
     <v-navigation-drawer
       app
@@ -66,9 +66,9 @@ export default {
   data: () => ({
     drawer: null,
     routes: [
-      { name: "Log", icon: "check_circle_outline", to: "/" },
+      { name: "Home", icon: "check_circle_outline", to: "/" },
       { name: "About", icon: "info", to: "/about" },
-      { name: "Donate", icon: "favorite", to: "/donate" }
+      { name: "Profile", icon: "favorite", to: "/donate" }
     ]
   })
 };
